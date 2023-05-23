@@ -20,9 +20,12 @@ architecture Behavioral of SerialUART_Receiver is
 	signal net_uart_data	: std_logic_vector (39 downto 0);
 begin
 	
+	-- Serial baud rate is 	9600
+	-- Clock rate is		20MHz
+	--		= 20e6 / 9600 / 16 = 
 	INST_READER: entity work.SerialUART_Reader(Behavioral) 
 		generic map (
-			BAUD_X8_CLK_TICKS	=> 21,	-- 20e6 / 115200 / 8
+			BAUD_X16_CLK_TICKS	=> 130,
 			DATA_COUNT			=> 40
 		)
 		port map (

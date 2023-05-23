@@ -5,15 +5,12 @@ use IEEE.NUMERIC_STD.all;
 -- Modified from
 -- https://www.hackster.io/alexey-sudbin/uart-interface-in-vhdl-for-basys3-board-eef170
 
--- Set Generic BAUD_X8_CLK_TICKS as:
--- (clk freq) / (baud rate) / 8
-
--- Example: 20MHz Clock, 115200 baud rate
--- 20000000 / 115200 / 8 = 21
+-- Set Generic BAUD_X16_CLK_TICKS as:
+-- (clk freq) / (baud rate) / 16
 
 entity SerialUART_Reader is
 	generic (
-		BAUD_X8_CLK_TICKS 	: integer;
+		BAUD_X16_CLK_TICKS 	: integer;
 		DATA_COUNT			: integer
 	);
 	port (
@@ -29,40 +26,40 @@ architecture Behavioral of SerialUART_Reader is
 	type rx_states_t is (IDLE, START, DATA, STOP);
     signal rx_state : rx_states_t := IDLE;
 
-    signal baud_rate_x8_clk		: std_logic := '0';
+    signal baud_rate_x16_clk	: std_logic := '0';
     signal rx_stored_data		: std_logic_vector (DATA_COUNT-1 downto 0) := (others => '0');
 begin
 	
-	-- The baud_rate_x8_clk_generator process generates an oversampled clock.
-	-- The baud_rate_x8_clk signal is 16 times faster than the baud rate clock.
+	-- The baud_rate_x16_clk_generator process generates an oversampled clock.
+	-- The baud_rate_x16_clk signal is 16 times faster than the baud rate clock.
 	-- Oversampling is needed to put the capture point at the middle of duration of
 	-- the receiving bit.
-	-- The BAUD_X8_CLK_TICKS constant reflects the ratio between the master clk
-	-- and the x8 baud rate.
+	-- The BAUD_X16_CLK_TICKS constant reflects the ratio between the master clk
+	-- and the x16 baud rate.
 
-	baud_rate_x8_clk_generator: process(i_CLK)
-		variable baud_x8_count : integer range 0 to (BAUD_X8_CLK_TICKS - 1) := (BAUD_X8_CLK_TICKS - 1);
+	baud_rate_x16_clk_generator: process(i_CLK)
+		variable baud_x16_count : integer range 0 to (BAUD_X16_CLK_TICKS - 1) := (BAUD_X16_CLK_TICKS - 1);
 	begin
 		if rising_edge(i_CLK) then
-			if (baud_x8_count = 0) then
-				baud_rate_x8_clk <= '1';
-				baud_x8_count := BAUD_X8_CLK_TICKS - 1;
+			if (baud_x16_count = 0) then
+				baud_rate_x16_clk <= '1';
+				baud_x16_count := BAUD_X16_CLK_TICKS - 1;
 			else
-				baud_rate_x8_clk <= '0';
-				baud_x8_count := baud_x8_count - 1;
+				baud_rate_x16_clk <= '0';
+				baud_x16_count := baud_x16_count - 1;
 			end if;
 		end if;
-	end process baud_rate_x8_clk_generator;
+	end process baud_rate_x16_clk_generator;
 	
 	-- The UART_rx_FSM process represents a Finite State Machine which has
 	-- four states (IDLE, START, DATA, STOP). See inline comments for more details.
 	
 	UART_rx_FSM: process(i_CLK)
-		variable bit_duration_count : integer range 0 to 7 := 0;
+		variable bit_duration_count : integer range 0 to 15 := 0;
 		variable bit_count          : integer range 0 to DATA_COUNT-1 := 0;
 	begin
 		if rising_edge(i_CLK) then
-			if (baud_rate_x8_clk = '1') then     -- the FSM works 16 times faster the baud rate frequency
+			if (baud_rate_x16_clk = '1') then     -- the FSM works 16 times faster the baud rate frequency
 				case rx_state is
 					
 					when IDLE =>
@@ -78,7 +75,7 @@ begin
 					when START =>
 						
 						if (i_RX = '0') then					-- verify that the start bit is preset
-							if (bit_duration_count = 3) then	-- wait a half of the baud rate cycle
+							if (bit_duration_count = 7) then	-- wait a half of the baud rate cycle
 								rx_state <= DATA;				-- (it puts the capture point at the middle of duration of the receiving bit)
 								bit_duration_count := 0;
 							else
@@ -90,7 +87,7 @@ begin
 						
 					when DATA =>
 						
-						if (bit_duration_count = 7) then				-- wait for "one" baud rate cycle (not strictly one, about one)
+						if (bit_duration_count = 15) then				-- wait for "one" baud rate cycle (not strictly one, about one)
 							rx_stored_data(bit_count) <= i_RX;			-- fill in the receiving register one received bit.
 							bit_duration_count := 0;
 							if (bit_count = DATA_COUNT-1) then			-- when all bits received, go to the STOP state
@@ -105,7 +102,7 @@ begin
 						
 					when STOP =>
 						
-						if (bit_duration_count = 7) then		-- wait for "one" baud rate cycle
+						if (bit_duration_count = 15) then		-- wait for "one" baud rate cycle
 							o_Data <= rx_stored_data;			-- transer the received data to the outside world
 							rx_state <= IDLE;
 						else
