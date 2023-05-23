@@ -1,0 +1,11 @@
+NET "i_InstrRX" LOC = P6;		// K2 Connector 15
+NET "i_Enable" 	LOC = P8;		// K2 Connector 13
+NET "CLK" 		LOC = P123;		// OSC
+
+NET "o_VGA[4]" 	LOC = P5;		// K1 Connector 15	-> Red
+NET "o_VGA[3]" 	LOC = P7;		// K1 Connector 13	-> Green
+NET "o_VGA[2]" 	LOC = P9;		// K1 Connector 11	-> Blue
+NET "o_VGA[1]" 	LOC = P14;		// K1 Connector 7	-> HSync
+NET "o_VGA[0]" 	LOC = P16;		// K1 Connector 5	-> VSync
+
+NET "o_Busy" 	LOC = P23;		// K1 Connector 1

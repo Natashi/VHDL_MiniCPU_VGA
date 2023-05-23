@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wave_config>
+   <wave_state>
+   </wave_state>
+   <db_ref_list>
+      <db_ref path="/home/ise/Projects/FPGA_MiniCPU/test_CPU_isim_beh.wdb" id="1" type="auto">
+         <top_modules>
+            <top_module name="math_real" />
+            <top_module name="numeric_std" />
+            <top_module name="std_logic_1164" />
+            <top_module name="std_logic_arith" />
+            <top_module name="std_logic_signed" />
+            <top_module name="std_logic_unsigned" />
+            <top_module name="test_cpu" />
+         </top_modules>
+      </db_ref>
+   </db_ref_list>
+   <WVObjectSize size="9" />
+   <wvobject fp_name="/test_cpu/i_instr" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">i_instr[31:0]</obj_property>
+      <obj_property name="ObjectShortName">i_instr[31:0]</obj_property>
+      <obj_property name="Radix">BINARYRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/test_cpu/i_enable" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">i_enable</obj_property>
+      <obj_property name="ObjectShortName">i_enable</obj_property>
+   </wvobject>
+   <wvobject fp_name="/test_cpu/i_clk" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">i_clk</obj_property>
+      <obj_property name="ObjectShortName">i_clk</obj_property>
+   </wvobject>
+   <wvobject fp_name="/test_cpu/o_vram_char" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">o_vram_char[7:0]</obj_property>
+      <obj_property name="ObjectShortName">o_vram_char[7:0]</obj_property>
+      <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/test_cpu/o_vram_addr" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">o_vram_addr[15:0]</obj_property>
+      <obj_property name="ObjectShortName">o_vram_addr[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/test_cpu/o_vram_cmd" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">o_vram_cmd[4:0]</obj_property>
+      <obj_property name="ObjectShortName">o_vram_cmd[4:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="divider10" type="divider">
+      <obj_property name="label">New Divider</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="BkColor">128 128 255</obj_property>
+      <obj_property name="TextColor">230 230 230</obj_property>
+   </wvobject>
+   <wvobject fp_name="group9" type="group">
+      <obj_property name="label">Registers</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <wvobject fp_name="/test_cpu/uut/INST_REGISTERS/i_rdreg1" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">i_rdreg1[3:0]</obj_property>
+         <obj_property name="ObjectShortName">i_rdreg1[3:0]</obj_property>
+         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/test_cpu/uut/INST_REGISTERS/i_rdreg2" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">i_rdreg2[3:0]</obj_property>
+         <obj_property name="ObjectShortName">i_rdreg2[3:0]</obj_property>
+         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/test_cpu/uut/INST_REGISTERS/i_wrreg" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">i_wrreg[3:0]</obj_property>
+         <obj_property name="ObjectShortName">i_wrreg[3:0]</obj_property>
+         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+      </wvobject>
+   </wvobject>
+   <wvobject fp_name="group14" type="group">
+      <obj_property name="label">ALU</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <wvobject fp_name="/test_cpu/uut/INST_ALU/i_operation" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">i_operation[3:0]</obj_property>
+         <obj_property name="ObjectShortName">i_operation[3:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/test_cpu/uut/INST_ALU/i_data1" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">i_data1[31:0]</obj_property>
+         <obj_property name="ObjectShortName">i_data1[31:0]</obj_property>
+         <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/test_cpu/uut/INST_ALU/i_data2" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">i_data2[31:0]</obj_property>
+         <obj_property name="ObjectShortName">i_data2[31:0]</obj_property>
+         <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/test_cpu/uut/INST_ALU/o_res" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">o_res[31:0]</obj_property>
+         <obj_property name="ObjectShortName">o_res[31:0]</obj_property>
+         <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+      </wvobject>
+   </wvobject>
+</wave_config>
