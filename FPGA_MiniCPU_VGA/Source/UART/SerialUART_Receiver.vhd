@@ -17,31 +17,36 @@ entity SerialUART_Receiver is
 end SerialUART_Receiver;
 
 architecture Behavioral of SerialUART_Receiver is
-	signal net_uart_data	: std_logic_vector (39 downto 0);
+	signal net_uart_out		: std_logic_vector (39 downto 0);
+	signal net_uart_data	: std_logic_vector (31 downto 0);
 begin
 	
 	-- Serial baud rate is 	9600
-	-- Clock rate is		20MHz
-	--		= 20e6 / 9600 / 16 = 
+	-- Clock rate is		25MHz (at this point)
+	--		= 25e6 / 9600 / 16 = 162.76
 	INST_READER: entity work.SerialUART_Reader(Behavioral) 
 		generic map (
-			BAUD_X16_CLK_TICKS	=> 130,
+			BAUD_X16_CLK_TICKS	=> 162,
 			DATA_COUNT			=> 40
 		)
 		port map (
 			i_RX		=> i_RX,
 			i_CLK		=> i_CLK,
 			
-			o_Data		=> net_uart_data,
+			o_Data		=> net_uart_out,
 			o_Busy		=> o_Busy
 		);
 	
+	net_uart_data <= net_uart_out(39 downto 8);
+	
 	INST_CHECK: entity work.InputCheck(Behavioral) 
 		port map (
-			i_Data		=> net_uart_data(39 downto 8),
-			i_Hash		=> net_uart_data(7 downto 0),
+			i_Data		=> net_uart_data,
+			i_Hash		=> net_uart_out(7 downto 0),
 			
 			o_Valid		=> o_Valid
 		);
+	
+	o_Data <= net_uart_data;
 	
 end Behavioral;

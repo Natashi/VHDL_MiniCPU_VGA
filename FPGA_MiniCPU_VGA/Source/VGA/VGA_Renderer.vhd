@@ -13,8 +13,6 @@ entity VGA_Renderer is
 end VGA_Renderer;
 
 architecture Behavioral of VGA_Renderer is
-	signal net_CLK_25MHz	: std_logic;
-	
 	signal net_Char			: std_logic_vector (7 downto 0);
 	signal net_Color		: std_logic_vector (2 downto 0);
 	
@@ -40,22 +38,16 @@ begin
 			o_Color		=> net_Color
 		);
 	
-	INST_CLK_ADJUST: entity work.ClockAdjust(Behavioral) 
-		port map (
-			i_Clk 		=> i_CLK,
-			o_Clk		=> net_CLK_25MHz
-		);
-	
 	INST_VGA_GEN: entity work.VGA_Gen(Behavioral) 
 		port map (
-			i_Clk 		=> net_CLK_25MHz,
+			i_Clk 		=> i_CLK,
 			o_VGA		=> net_VGA
 		);
 	
 	INST_RENDERER: entity work.Renderer(Behavioral) 
 		port map (
 			i_VGA		=> net_VGA,
-			i_Clk		=> net_CLK_25MHz,
+			i_Clk		=> i_CLK,
 			
 			o_CharID	=> net_Ren_CharID,
 			o_DotPos	=> net_Ren_DotPos
@@ -64,7 +56,7 @@ begin
 	INST_CROM: entity work.CharacterROM(Behavioral) 
 		port map (
 			i_Char		=> net_Char,
-			i_Clk		=> net_CLK_25MHz,
+			i_Clk		=> i_CLK,
 			
 			o_Dots		=> net_Dots
 		);

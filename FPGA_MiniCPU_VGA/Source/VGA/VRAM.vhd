@@ -20,11 +20,10 @@ architecture Behavioral of VRAM is
 	-- 1 char takes up 8x12
 	--   = 80 char / line
 	--   = 40 lines / screen
-	-- 1 char = 8 bytes
+	-- 1 char = 7 bytes (32 ~ 127)
 	
-	subtype char_t is std_logic_vector (7 downto 0);
-	
-	type vram_t is array (39 downto 0, 79 downto 0) of char_t;
+	type vram_t is array (3199 downto 0) 
+		of std_logic_vector (6 downto 0);
 	signal vram		: vram_t;
 	
 	alias i_Color 	: std_logic_vector (2 downto 0) is i_Cmd(4 downto 2);
@@ -42,27 +41,24 @@ begin
 		variable wr_y	: integer range 0 to 39;
 	begin
 		if rising_edge(i_CLK) then
-			if i_Reset = '1' then
-				for iy in 0 to 39 loop
-					for ix in 0 to 79 loop
-						vram(iy, ix) <= (others => '0');
-					end loop;
-				end loop;
-			else
+			--if i_Reset = '1' then
+			--	for i in 0 to 3199 loop
+			--		vram(i) <= (others => '0');
+			--	end loop;
+			--else
 				if i_Write = '1' then
-					wr_x := to_integer(unsigned(i_WrAddr(7 downto 0)));
-					wr_y := to_integer(unsigned(i_WrAddr(15 downto 8)));
+					wr_x := to_integer(unsigned(i_WrAddr(6 downto 0)));
+					wr_y := to_integer(unsigned(i_WrAddr(14 downto 8)));
 				
-					vram(wr_y, wr_x) <= i_WrData;
+					vram(wr_y * 80 + wr_x) <= i_WrData(6 downto 0);
 				end if;
-			end if;
+			--end if;
+			
+			rd_x <= to_integer(unsigned(i_RdAddr(6 downto 0)));
+			rd_y <= to_integer(unsigned(i_RdAddr(14 downto 8)));
+			o_Char <= '0' & vram(rd_y * 80 + rd_x);
 		end if;
 	end process;
-	
-	rd_x <= to_integer(unsigned(i_RdAddr(7 downto 0)));
-	rd_y <= to_integer(unsigned(i_RdAddr(15 downto 8)));
-	
-	o_Char <= vram(rd_y, rd_x);
 	
 	o_Color <= i_Color;
 	

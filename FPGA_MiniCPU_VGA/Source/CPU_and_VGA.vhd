@@ -13,6 +13,8 @@ entity CPU_and_VGA is
 end CPU_and_VGA;
 	
 architecture Behavioral of CPU_and_VGA is
+	signal net_CLK_25MHz	: std_logic;
+	
 	signal net_rx			: std_logic;
 	
 	signal net_uart_data	: std_logic_vector (31 downto 0);
@@ -25,10 +27,16 @@ begin
 	
 	net_rx <= i_InstrRX when i_Enable = '1' else '1';
 	
+	INST_CLK_ADJUST: entity work.ClockAdjust(Behavioral) 
+		port map (
+			i_Clk 		=> CLK,
+			o_Clk		=> net_CLK_25MHz
+		);
+	
 	INST_UART: entity work.SerialUART_Receiver(Behavioral) 
 		port map (
 			i_RX		=> net_rx,
-			i_CLK		=> CLK,
+			i_CLK		=> net_CLK_25MHz,
 			
 			o_Data		=> net_uart_data,
 			o_Busy		=> o_Busy,
@@ -39,7 +47,7 @@ begin
 		port map (
 			i_Instr 		=> net_uart_data,
 			i_Enable 		=> net_uart_valid,
-			i_CLK 			=> CLK,
+			i_CLK 			=> net_CLK_25MHz,
 			
 			o_VRAM_Char 	=> net_vram_char,
 			o_VRAM_Addr 	=> net_vram_addr,
@@ -51,7 +59,7 @@ begin
 			i_Data 			=> net_vram_char,
 			i_Addr 			=> net_vram_addr,
 			i_Cmd 			=> net_vram_cmd,
-			i_CLK 			=> CLK,
+			i_CLK 			=> net_CLK_25MHz,
 			
 			o_VGA			=> o_VGA
 		);

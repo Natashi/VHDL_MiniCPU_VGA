@@ -22,14 +22,21 @@ architecture Behavioral of Registers is
 	signal register_file: registers_t;
 begin
 	
-	process (i_CLK, i_WriteEnable) begin
-		if rising_edge(i_CLK) and i_WriteEnable = '1' then
-			register_file(to_integer(unsigned(i_WrReg))) 
-				<= i_WrData;
+	process (i_CLK, i_WriteEnable)
+		variable tmp_rd1, tmp_rd2 : integer range 0 to 15;
+	begin
+		if rising_edge(i_CLK) then
+			if i_WriteEnable = '1' then
+				register_file(to_integer(unsigned(i_WrReg))) 
+					<= i_WrData;
+			end if;
+			
+			tmp_rd1 := to_integer(unsigned(i_RdReg1));
+			tmp_rd2 := to_integer(unsigned(i_RdReg2));
+			
+			o_Data1 <= register_file(tmp_rd1);
+			o_Data2 <= register_file(tmp_rd2);
 		end if;
 	end process;
-	
-	o_Data1 <= register_file(to_integer(unsigned(i_RdReg1)));
-	o_Data2 <= register_file(to_integer(unsigned(i_RdReg2)));
 	
 end Behavioral;
