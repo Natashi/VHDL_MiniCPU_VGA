@@ -1,11 +1,13 @@
-#include <SoftwareSerial.h>
+#include "SoftwareSerialEx.h"
 
 // Use pins 2 and 3 for (RX, TX) with the FPGA using software UART
 //	UNO's sole hardware serial is only used for the serial monitor
 
-constexpr const int fpgaRx = 2;
-constexpr const int fpgaTx = 3;
-SoftwareSerial fpgaUart = SoftwareSerial(fpgaRx, fpgaTx);
+constexpr const int fpgaRx = 12;
+constexpr const int fpgaTx = 13;
+SoftwareSerialEx fpgaUart = SoftwareSerialEx(fpgaRx, fpgaTx);
+
+constexpr const int fpgaEnable = 7;
 
 //INPUT
 String INP  = "";
@@ -72,6 +74,8 @@ void setup() {
 	pinMode(fpgaTx, OUTPUT);
 	
 	fpgaUart.begin(9600);
+	
+	pinMode(fpgaEnable, OUTPUT);
 }
 
 //#define DEBUG_PRINT
@@ -135,7 +139,7 @@ void sendDataOverUART(String data)
   }
 
   //// Print the original data value
-  Serial.print("FINAL DATA SEND: ");
+  Serial.print("DATA SENT : ");
   for (int i = 0; i < 5; i++) {
     Serial.print(convertBinaryToString(buffer[i], 8));
     Serial.print(" ");
@@ -152,10 +156,18 @@ void sendDataOverUART(String data)
 	// Serial is LSB first, so no need to worry about that
 	// Bytes must be sent in a reverse order
 	
-	for (int i = 0; i < 5; i++) {
-		fpgaUart.write(buffer[4 - i]);
-	}
-	delay(10);	// 10 ms delay
+	uint8_t send_buffer[5] = {
+		buffer[4], buffer[3], buffer[2], buffer[1], buffer[0]
+	};
+	
+	digitalWrite(fpgaEnable, HIGH);
+	delay(100);	// 100 ms delay
+	
+	fpgaUart.write(send_buffer, 5);
+	
+	delay(100);	// 100 ms delay
+	
+	digitalWrite(fpgaEnable, LOW);
 }
 
 uint64_t convertLongStringToBinary(String str)
@@ -540,7 +552,7 @@ void findCRC(String input)
   {
     temp = temp ^ buffer[i];
   }
-  CRC_DIV = temp;
+  CRC_DIV = ~temp;
 
 }
 
@@ -577,8 +589,9 @@ String convertBinaryToString(uint64_t number, int numBits) {
 void printAll()
 {
   //Print Command and Flags
-  Serial.println("------------------- SHOW VALUE -------------------");
   Serial.println("INPUT     : " + INP);
+
+#ifdef DEBUG_PRINT
   Serial.println("CMD       : " + CMD);
   Serial.println("REG1      : " + REG1);
   Serial.println("REG2      : " + REG2);
@@ -596,6 +609,7 @@ void printAll()
   Serial.println(convertBinaryToString(CRC_DIV, 8));
   //Serial.print("FINAL DATA :");
   //Serial.println(convertBinaryToString(TDATA, 40));
+#endif
 }
 
 void getFlags(String& cmd, String& flag) {
