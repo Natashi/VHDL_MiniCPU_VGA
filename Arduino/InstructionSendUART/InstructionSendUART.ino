@@ -31,7 +31,6 @@ uint64_t TDATA = 0;
 
 //CHECKING
 uint8_t CRC_DIV = 0;
-uint8_t CRCVAL = 0;
 
 //VARIABLE
 bool isCommand = 1;
@@ -61,7 +60,6 @@ void initValue()
 
   //CHECKING
   CRC_DIV = 0;
-  CRCVAL = 0;
 
   //VARIABLE
   isCommand = 1;
@@ -100,9 +98,7 @@ void loop() {
 
       TDATA = convertLongStringToBinary(TD);
 
-      CRCVAL = calculateCRC(TDATA, CRC_DIV);
-
-      TDATA = TDATA | CRCVAL;
+      TDATA = TDATA | CRC_DIV;
 
       // PRINT ALL VALUE
       printAll();
@@ -159,6 +155,7 @@ void sendDataOverUART(String data)
 	for (int i = 0; i < 5; i++) {
 		fpgaUart.write(buffer[4 - i]);
 	}
+	delay(10);	// 10 ms delay
 }
 
 uint64_t convertLongStringToBinary(String str)
@@ -174,26 +171,6 @@ uint64_t convertLongStringToBinary(String str)
   // Combine upper and lower values into a uint64_t value
   uint64_t data = (static_cast<uint64_t>(upperValue) << 20) | lowerValue;
   return data;
-}
-
-uint8_t calculateCRC(uint32_t data, uint32_t divisor)
-{
-  uint8_t crc = 0;
-
-  // Perform CRC calculation
-  for (int i = 31; i >= 0; i--)
-  {
-    uint8_t msb_data = (data >> i) & 0x01;
-    uint8_t msb_crc = (crc >> 7) & 0x01;
-
-    crc = (crc << 1) | msb_data;
-
-    if (msb_crc == 1)
-    {
-      crc ^= divisor;
-    }
-  }
-  return crc;
 }
 
 String convertFlagsToBits(String flags)
@@ -615,12 +592,10 @@ void printAll()
   Serial.println("OPE       : " + OPE);
   Serial.println("IMM       : " + IMM);
 
-  Serial.print("CRC_DIV    : " );
+  Serial.print("CHECKSUM  : " );
   Serial.println(convertBinaryToString(CRC_DIV, 8));
-  Serial.print("CRCVALUE   : ");
-  Serial.println(convertBinaryToString(CRCVAL, 8));
-  Serial.print("FINAL DATA :");
-  Serial.println(convertBinaryToString(TDATA, 40));
+  //Serial.print("FINAL DATA :");
+  //Serial.println(convertBinaryToString(TDATA, 40));
 }
 
 void getFlags(String& cmd, String& flag) {
