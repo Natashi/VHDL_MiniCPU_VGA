@@ -45,23 +45,27 @@ architecture Behavioral of CPU is
 	signal net_ALU_in2		: std_logic_vector (31 downto 0);
 begin
 	
-	INST_CLK_CONTROL: entity work.ClockController(Behavioral) 
-		port map (
-			i_Enable		=> i_Enable,
-			i_CLK			=> i_CLK,
-			
-			o_Clk_Decode	=> net_clk_d,
-			o_Clk_RegisterR	=> net_clk_r,
-			o_Clk_Execute	=> net_clk_e,
-			o_Clk_RegisterW	=> net_clk_w,
-			o_Busy			=> o_Busy
-		);
+	--INST_CLK_CONTROL: entity work.ClockController(Behavioral) 
+	--	port map (
+	--		i_Enable		=> i_Enable,
+	--		i_CLK			=> i_CLK,
+	--		
+	--		o_Clk_Decode	=> net_clk_d,
+	--		o_Clk_RegisterR	=> net_clk_r,
+	--		o_Clk_Execute	=> net_clk_e,
+	--		o_Clk_RegisterW	=> net_clk_w,
+	--		o_Busy			=> o_Busy
+	--	);
+	o_Busy <= '0';
 	
 	INST_IDECODER: entity work.InstructionDecode(Behavioral) 
 		port map (
 			i_Instr			=> i_Instr,
 			i_CPSR			=> reg_CPSR,
-			i_CLK			=> net_clk_d,
+			i_Enable		=> i_Enable,
+			i_CLK			=> i_CLK,
+			--i_Enable		=> '1',
+			--i_CLK			=> net_clk_d,
 			
 			o_Operation		=> net_Operation,
 			o_ALU_Src		=> net_ALU_Src,
@@ -87,14 +91,8 @@ begin
 			o		=> net_Imm16to32
 		);
 	
-	net_Reg_WrEn <= net_clk_w and net_Reg_Write;
-	-- net_Reg_RdWr <= net_clk_r or net_clk_w;
-	
-	INST_BUFG_REGCLK : BUFG
-		port map (
-			I => net_clk_r or net_clk_w,
-			O => net_Reg_RdWr
-		);
+	--net_Reg_WrEn <= net_clk_w and net_Reg_Write;
+	--net_Reg_RdWr <= net_clk_r or net_clk_w;
 	
 	INST_REGISTERS: entity work.Registers(Behavioral) 
 		port map (
@@ -102,8 +100,10 @@ begin
 			i_RdReg2		=> i_Instr(19 downto 16),
 			i_WrReg			=> net_WrReg,
 			i_WrData		=> net_WrData,
-			i_WriteEnable	=> net_Reg_WrEn,
-			i_CLK			=> net_Reg_RdWr,
+			--i_WriteEnable	=> net_Reg_WrEn,
+			--i_CLK			=> net_Reg_RdWr,
+			i_WriteEnable	=> net_Reg_Write,
+			i_CLK			=> i_CLK,
 			
 			o_Data1			=> net_RegRead1,
 			o_Data2			=> net_RegRead2
@@ -125,7 +125,8 @@ begin
 			i_Data2			=> net_ALU_in2,
 			i_Operation		=> net_Operation,
 			i_Enable		=> net_ALU_Enable,
-			i_CLK			=> net_clk_e,
+			--i_CLK			=> net_clk_e,
+			i_CLK			=> i_CLK,
 			
 			o_Res			=> net_WrData,
 			o_CPSR			=> reg_CPSR
@@ -136,7 +137,8 @@ begin
 			i_Data			=> net_RegRead1(15 downto 0),
 			i_Operation		=> net_Operation,
 			i_Enable		=> net_GC_Enable,
-			i_CLK			=> net_clk_e,
+			--i_CLK			=> net_clk_e,
+			i_CLK			=> i_CLK,
 			
 			o_VRAM_Char		=> o_VRAM_Char,
 			o_VRAM_Addr		=> o_VRAM_Addr,

@@ -9,3 +9,31 @@ NET "o_VGA[1]" 	LOC = P14;		// K1 Connector 7	-> HSync
 NET "o_VGA[0]" 	LOC = P16;		// K1 Connector 5	-> VSync
 
 NET "o_Busy" 	LOC = P23;		// K1 Connector 1
+
+
+NET "o_TestLED[7]" 		LOC = P67;		// L7
+NET "o_TestLED[6]" 		LOC = P74;		// L6
+NET "o_TestLED[5]" 		LOC = P75;		// L5
+NET "o_TestLED[4]" 		LOC = P78;		// L4
+NET "o_TestLED[3]" 		LOC = P79;		// L3
+NET "o_TestLED[2]" 		LOC = P80;		// L2
+NET "o_TestLED[1]" 		LOC = P81;		// L1
+NET "o_TestLED[0]" 		LOC = P82;		// L0
+
+NET "o_TestLED2[7]" 	LOC = P84;		// MN7
+NET "o_TestLED2[6]" 	LOC = P85;		// MN6
+NET "o_TestLED2[5]" 	LOC = P87;		// MN5
+NET "o_TestLED2[4]" 	LOC = P88;		// MN4
+NET "o_TestLED2[3]" 	LOC = P92;		// MN3
+NET "o_TestLED2[2]" 	LOC = P93;		// MN2
+NET "o_TestLED2[1]" 	LOC = P94;		// MN1
+NET "o_TestLED2[0]" 	LOC = P95;		// MN0
+
+NET "o_TestLED3[6]" 	LOC = P41;		// SegmentA
+NET "o_TestLED3[5]" 	LOC = P40;		// SegmentB
+NET "o_TestLED3[4]" 	LOC = P35;		// SegmentC
+NET "o_TestLED3[3]" 	LOC = P34;		// SegmentD
+NET "o_TestLED3[2]" 	LOC = P32;		// SegmentE
+NET "o_TestLED3[1]" 	LOC = P29;		// SegmentF
+NET "o_TestLED3[0]" 	LOC = P27;		// SegmentG
+NET "o_TestSeg" 		LOC = P30;		// DIGIT3

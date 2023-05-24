@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wave_config>
+   <wave_state>
+   </wave_state>
+   <db_ref_list>
+      <db_ref path="/home/ise/Projects/FPGA_MiniCPU/FPGA_MiniCPU_VGA/test_UART_isim_beh.wdb" id="1" type="auto">
+         <top_modules>
+            <top_module name="numeric_std" />
+            <top_module name="std_logic_1164" />
+            <top_module name="test_uart" />
+         </top_modules>
+      </db_ref>
+   </db_ref_list>
+   <WVObjectSize size="8" />
+   <wvobject fp_name="/test_uart/i_rx" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">i_rx</obj_property>
+      <obj_property name="ObjectShortName">i_rx</obj_property>
+   </wvobject>
+   <wvobject fp_name="/test_uart/i_clk" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">i_clk</obj_property>
+      <obj_property name="ObjectShortName">i_clk</obj_property>
+   </wvobject>
+   <wvobject fp_name="/test_uart/uut/INST_READER/o_data" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">o_data[39:0]</obj_property>
+      <obj_property name="ObjectShortName">o_data[39:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/test_uart/o_data" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">o_data[31:0]</obj_property>
+      <obj_property name="ObjectShortName">o_data[31:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/test_uart/o_valid" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">o_valid</obj_property>
+      <obj_property name="ObjectShortName">o_valid</obj_property>
+   </wvobject>
+   <wvobject fp_name="/test_uart/o_busy" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">o_busy</obj_property>
+      <obj_property name="ObjectShortName">o_busy</obj_property>
+   </wvobject>
+   <wvobject fp_name="/test_uart/uut/INST_CHECK/i_enable" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">i_enable</obj_property>
+      <obj_property name="ObjectShortName">i_enable</obj_property>
+   </wvobject>
+   <wvobject fp_name="/test_uart/uut/INST_CHECK/i_hash" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">i_hash[7:0]</obj_property>
+      <obj_property name="ObjectShortName">i_hash[7:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+</wave_config>

@@ -103,8 +103,11 @@ begin
 					when STOP =>
 						
 						if (bit_duration_count = 15) then		-- wait for "one" baud rate cycle
-							o_Data <= rx_stored_data;			-- transer the received data to the outside world
-							rx_state <= IDLE;
+							o_Data <= rx_stored_data;			-- transfer the received data to the outside world
+							
+							if (i_RX = '1') then					-- wait for a stop bit
+								rx_state <= IDLE;					-- revert to IDLE state
+							end if;
 						else
 							bit_duration_count := bit_duration_count + 1;
 						end if;
@@ -117,6 +120,6 @@ begin
 		end if;
 	end process UART_rx_FSM;
 	
-	o_Busy <= '0' when (rx_state = IDLE or rx_state = STOP) else '1';
+	o_Busy <= '0' when (rx_state = IDLE) else '1';
 	
 end Behavioral;

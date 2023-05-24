@@ -19,7 +19,7 @@ end Registers;
 architecture Behavioral of Registers is
 	type registers_t is array (0 to 15) 
 		of std_logic_vector (31 downto 0);
-	signal register_file: registers_t;
+	signal register_file: registers_t := (others => (others => '0'));
 begin
 	
 	process (i_CLK, i_WriteEnable)

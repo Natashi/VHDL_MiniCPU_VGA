@@ -12,7 +12,7 @@ entity CharacterROM is
 end CharacterROM;
 
 architecture Behavioral of CharacterROM is
-	type rom_type is array (95 downto 0) of std_logic_vector(49 downto 0);
+	type rom_type is array (0 to 95) of std_logic_vector(49 downto 0);
 	constant character_table : rom_type := (
 		-- space
 		"00000000000000000000000000000000000000000000000000",
@@ -208,22 +208,31 @@ architecture Behavioral of CharacterROM is
 		"00000001000100011111010000010000000000000000000000"
 	);
 	
-	signal tmp_rd : std_logic_vector (49 downto 0);
+	signal tmp_rd	: std_logic_vector (49 downto 0);
+	signal char_id	: integer range 0 to 127;
 begin
 	
 	-- Char data is 	5x10
 	-- Output data is	8x12
 	
 	process (i_CLK)
+		variable tmp_ch : integer range 0 to 255;
 	begin
 		if rising_edge(i_CLK) then
-			tmp_rd <= character_table(to_integer(unsigned(i_Char)) - 32);
+			tmp_ch := to_integer(unsigned(i_Char));
+			if tmp_ch < 32 then
+				tmp_ch := 32;
+			end if;
+			
+			char_id <= tmp_ch - 32;
 		end if;
 	end process;
 	
+	tmp_rd <= character_table(char_id);
+	
 	GEN_PADDING: for i in 0 to 9 generate
 		o_Dots((i * 8 + 7) downto (i * 8)) <=
-			tmp_rd((i * 5 + 4) downto (i * 5)) & "000";
+			"000" & tmp_rd((i * 5 + 4) downto (i * 5));
 	end generate GEN_PADDING;
 	
 	o_Dots(95 downto 80) <= (others => '0');

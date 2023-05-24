@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wave_config>
+   <wave_state>
+   </wave_state>
+   <db_ref_list>
+      <db_ref path="/home/ise/Projects/FPGA_MiniCPU/FPGA_MiniCPU_VGA/test_VGA_Renderer_isim_beh.wdb" id="1" type="auto">
+         <top_modules>
+            <top_module name="numeric_std" />
+            <top_module name="std_logic_1164" />
+            <top_module name="std_logic_arith" />
+            <top_module name="std_logic_unsigned" />
+            <top_module name="test_vga_renderer" />
+         </top_modules>
+      </db_ref>
+   </db_ref_list>
+   <WVObjectSize size="11" />
+   <wvobject fp_name="/test_vga_renderer/i_data" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">i_data[7:0]</obj_property>
+      <obj_property name="ObjectShortName">i_data[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/test_vga_renderer/i_addr" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">i_addr[15:0]</obj_property>
+      <obj_property name="ObjectShortName">i_addr[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/test_vga_renderer/i_cmd" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">i_cmd[4:0]</obj_property>
+      <obj_property name="ObjectShortName">i_cmd[4:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/test_vga_renderer/i_clk" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">i_clk</obj_property>
+      <obj_property name="ObjectShortName">i_clk</obj_property>
+   </wvobject>
+   <wvobject fp_name="/test_vga_renderer/o_vga" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">o_vga[4:0]</obj_property>
+      <obj_property name="ObjectShortName">o_vga[4:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/test_vga_renderer/uut/INST_VGA_GEN/o_vga[0]" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">[0]</obj_property>
+      <obj_property name="ObjectShortName">o_vga[0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="vbus53" type="vbus" db_ref_id="1">
+      <obj_property name="label">o_charid[15:8]</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+      <wvobject fp_name="/test_vga_renderer/uut/INST_RENDERER/o_charid[15]" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">[15]</obj_property>
+         <obj_property name="ObjectShortName">o_charid[15]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/test_vga_renderer/uut/INST_RENDERER/o_charid[14]" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">[14]</obj_property>
+         <obj_property name="ObjectShortName">o_charid[14]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/test_vga_renderer/uut/INST_RENDERER/o_charid[13]" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">[13]</obj_property>
+         <obj_property name="ObjectShortName">o_charid[13]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/test_vga_renderer/uut/INST_RENDERER/o_charid[12]" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">[12]</obj_property>
+         <obj_property name="ObjectShortName">o_charid[12]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/test_vga_renderer/uut/INST_RENDERER/o_charid[11]" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">[11]</obj_property>
+         <obj_property name="ObjectShortName">o_charid[11]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/test_vga_renderer/uut/INST_RENDERER/o_charid[10]" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">[10]</obj_property>
+         <obj_property name="ObjectShortName">o_charid[10]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/test_vga_renderer/uut/INST_RENDERER/o_charid[9]" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">[9]</obj_property>
+         <obj_property name="ObjectShortName">o_charid[9]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/test_vga_renderer/uut/INST_RENDERER/o_charid[8]" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">[8]</obj_property>
+         <obj_property name="ObjectShortName">o_charid[8]</obj_property>
+      </wvobject>
+   </wvobject>
+   <wvobject fp_name="vbus62" type="vbus" db_ref_id="1">
+      <obj_property name="label">o_charid[7:0]</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+      <wvobject fp_name="/test_vga_renderer/uut/INST_RENDERER/o_charid[7]" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">[7]</obj_property>
+         <obj_property name="ObjectShortName">o_charid[7]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/test_vga_renderer/uut/INST_RENDERER/o_charid[6]" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">[6]</obj_property>
+         <obj_property name="ObjectShortName">o_charid[6]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/test_vga_renderer/uut/INST_RENDERER/o_charid[5]" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">[5]</obj_property>
+         <obj_property name="ObjectShortName">o_charid[5]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/test_vga_renderer/uut/INST_RENDERER/o_charid[4]" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">[4]</obj_property>
+         <obj_property name="ObjectShortName">o_charid[4]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/test_vga_renderer/uut/INST_RENDERER/o_charid[3]" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">[3]</obj_property>
+         <obj_property name="ObjectShortName">o_charid[3]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/test_vga_renderer/uut/INST_RENDERER/o_charid[2]" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">[2]</obj_property>
+         <obj_property name="ObjectShortName">o_charid[2]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/test_vga_renderer/uut/INST_RENDERER/o_charid[1]" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">[1]</obj_property>
+         <obj_property name="ObjectShortName">o_charid[1]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/test_vga_renderer/uut/INST_RENDERER/o_charid[0]" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">[0]</obj_property>
+         <obj_property name="ObjectShortName">o_charid[0]</obj_property>
+      </wvobject>
+   </wvobject>
+   <wvobject fp_name="vbus71" type="vbus" db_ref_id="1">
+      <obj_property name="label">o_dotpos[15:8]</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+      <wvobject fp_name="/test_vga_renderer/uut/INST_RENDERER/o_dotpos[15]" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">[15]</obj_property>
+         <obj_property name="ObjectShortName">o_dotpos[15]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/test_vga_renderer/uut/INST_RENDERER/o_dotpos[14]" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">[14]</obj_property>
+         <obj_property name="ObjectShortName">o_dotpos[14]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/test_vga_renderer/uut/INST_RENDERER/o_dotpos[13]" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">[13]</obj_property>
+         <obj_property name="ObjectShortName">o_dotpos[13]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/test_vga_renderer/uut/INST_RENDERER/o_dotpos[12]" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">[12]</obj_property>
+         <obj_property name="ObjectShortName">o_dotpos[12]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/test_vga_renderer/uut/INST_RENDERER/o_dotpos[11]" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">[11]</obj_property>
+         <obj_property name="ObjectShortName">o_dotpos[11]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/test_vga_renderer/uut/INST_RENDERER/o_dotpos[10]" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">[10]</obj_property>
+         <obj_property name="ObjectShortName">o_dotpos[10]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/test_vga_renderer/uut/INST_RENDERER/o_dotpos[9]" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">[9]</obj_property>
+         <obj_property name="ObjectShortName">o_dotpos[9]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/test_vga_renderer/uut/INST_RENDERER/o_dotpos[8]" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">[8]</obj_property>
+         <obj_property name="ObjectShortName">o_dotpos[8]</obj_property>
+      </wvobject>
+   </wvobject>
+   <wvobject fp_name="vbus72" type="vbus" db_ref_id="1">
+      <obj_property name="label">o_dotpos[7:0]</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+      <wvobject fp_name="/test_vga_renderer/uut/INST_RENDERER/o_dotpos[7]" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">[7]</obj_property>
+         <obj_property name="ObjectShortName">o_dotpos[7]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/test_vga_renderer/uut/INST_RENDERER/o_dotpos[6]" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">[6]</obj_property>
+         <obj_property name="ObjectShortName">o_dotpos[6]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/test_vga_renderer/uut/INST_RENDERER/o_dotpos[5]" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">[5]</obj_property>
+         <obj_property name="ObjectShortName">o_dotpos[5]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/test_vga_renderer/uut/INST_RENDERER/o_dotpos[4]" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">[4]</obj_property>
+         <obj_property name="ObjectShortName">o_dotpos[4]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/test_vga_renderer/uut/INST_RENDERER/o_dotpos[3]" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">[3]</obj_property>
+         <obj_property name="ObjectShortName">o_dotpos[3]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/test_vga_renderer/uut/INST_RENDERER/o_dotpos[2]" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">[2]</obj_property>
+         <obj_property name="ObjectShortName">o_dotpos[2]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/test_vga_renderer/uut/INST_RENDERER/o_dotpos[1]" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">[1]</obj_property>
+         <obj_property name="ObjectShortName">o_dotpos[1]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/test_vga_renderer/uut/INST_RENDERER/o_dotpos[0]" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">[0]</obj_property>
+         <obj_property name="ObjectShortName">o_dotpos[0]</obj_property>
+      </wvobject>
+   </wvobject>
+   <wvobject fp_name="/test_vga_renderer/uut/INST_CROM/i_char" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">i_char[7:0]</obj_property>
+      <obj_property name="ObjectShortName">i_char[7:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+</wave_config>

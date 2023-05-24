@@ -24,11 +24,27 @@ begin
 	-- Screen resolution: 640x480
 	-- 1 char = 8x12
 	
-	tmp_x1 <= resize(unsigned(VGA_X) / 8, 8);
-	tmp_y1 <= resize(unsigned(VGA_Y) / 12, 8);
-	
-	tmp_x2 <= resize(unsigned(VGA_X) mod 8, 8);
-	tmp_y2 <= resize(unsigned(VGA_Y) mod 12, 8);
+	process (i_CLK)
+		variable tmp_x, tmp_y : unsigned (9 downto 0);
+	begin
+		if rising_edge(i_CLK) then
+			if i_VGA(0) = '1' then
+				tmp_x := unsigned(VGA_X) / 2;
+				tmp_y := unsigned(VGA_Y) / 2;
+				
+				tmp_x1 <= resize(tmp_x / 8, 8);
+				tmp_y1 <= resize(tmp_y / 12, 8);
+				
+				tmp_x2 <= 7 - resize(tmp_x mod 8, 8);
+				tmp_y2 <= 11 - resize(tmp_y mod 12, 8);
+			else
+				tmp_x1 <= (others => '0');
+				tmp_y1 <= (others => '0');
+				tmp_x2 <= (others => '0');
+				tmp_x2 <= (others => '0');
+			end if;
+		end if;
+	end process;
 	
 	o_CharID(15 downto 8) <= std_logic_vector(tmp_y1);
 	o_CharID(7 downto 0)  <= std_logic_vector(tmp_x1);

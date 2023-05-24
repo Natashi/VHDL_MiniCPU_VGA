@@ -12,10 +12,11 @@
             <top_module name="std_logic_signed" />
             <top_module name="std_logic_unsigned" />
             <top_module name="test_cpu" />
+            <top_module name="vcomponents" />
          </top_modules>
       </db_ref>
    </db_ref_list>
-   <WVObjectSize size="9" />
+   <WVObjectSize size="10" />
    <wvobject fp_name="/test_cpu/i_instr" type="array" db_ref_id="1">
       <obj_property name="ElementShortName">i_instr[31:0]</obj_property>
       <obj_property name="ObjectShortName">i_instr[31:0]</obj_property>
@@ -106,5 +107,9 @@
          <obj_property name="ObjectShortName">o_res[31:0]</obj_property>
          <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
       </wvobject>
+   </wvobject>
+   <wvobject fp_name="/test_cpu/uut/o_busy" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">o_busy</obj_property>
+      <obj_property name="ObjectShortName">o_busy</obj_property>
    </wvobject>
 </wave_config>

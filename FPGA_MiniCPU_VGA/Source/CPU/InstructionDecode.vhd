@@ -6,6 +6,7 @@ entity InstructionDecode is
 	port (
 		i_Instr			: in	std_logic_vector (31 downto 0);
 		i_CPSR			: in	std_logic_vector (7 downto 0);
+		i_Enable		: in	std_logic;
 		i_CLK			: in	std_logic;
 		
 		o_Operation		: out	std_logic_vector (3 downto 0);
@@ -57,48 +58,53 @@ begin
 	process (i_CLK)
 	begin
 		if rising_edge(i_CLK) then
-			if 		i_Opcode = "00000" then		-- Basic ALU
-				res_operation 	<= to_integer(unsigned(i_Instr(11 downto 8)));
-				res_control		<= "01110";
-			elsif 	i_Opcode = "00001" then		-- movi
-				res_operation 	<= 0;
-				res_control		<= "10110";
-			elsif 	i_Opcode = "00010" then		-- addi
-				res_operation 	<= 1;
-				res_control		<= "10110";
-			elsif 	i_Opcode = "00011" then		-- subi
-				res_operation 	<= 2;
-				res_control		<= "10110";
-			elsif 	i_Opcode = "00100" then		-- muli
-				res_operation 	<= 3;
-				res_control		<= "10110";
-			elsif 	i_Opcode = "00101" then		-- divi
-				res_operation 	<= 4;
-				res_control		<= "10110";
-			elsif 	i_Opcode = "00110" then		-- cmpi
-				res_operation 	<= 5;
-				res_control		<= "10110";
-			elsif 	i_Opcode = "00101" then		-- slli
-				res_operation 	<= 6;
-				res_control		<= "10110";
-			elsif 	i_Opcode = "00110" then		-- srli
-				res_operation 	<= 7;
-				res_control		<= "10110";
-			elsif 	i_Opcode = "00111" then		-- clr
-				res_operation 	<= 15;
-				res_control		<= "00100";
-			elsif 	i_Opcode = "01000" then		-- andi
-				res_operation 	<= 9;
-				res_control		<= "10110";
-			elsif 	i_Opcode = "01001" then		-- orri
-				res_operation 	<= 10;
-				res_control		<= "10110";
-			elsif 	i_Opcode = "01010" then		-- xori
-				res_operation 	<= 11;
-				res_control		<= "10110";
-			elsif 	i_Opcode = "10000" then		-- Display
-				res_operation 	<= to_integer(unsigned(i_Instr(11 downto 8)));
-				res_control		<= "00001";
+			if i_Enable = '1' then
+				if 		i_Opcode = "00000" then		-- Basic ALU
+					res_operation 	<= to_integer(unsigned(i_Instr(11 downto 8)));
+					res_control		<= "01110";
+				elsif 	i_Opcode = "00001" then		-- movi
+					res_operation 	<= 0;
+					res_control		<= "10110";
+				elsif 	i_Opcode = "00010" then		-- addi
+					res_operation 	<= 1;
+					res_control		<= "10110";
+				elsif 	i_Opcode = "00011" then		-- subi
+					res_operation 	<= 2;
+					res_control		<= "10110";
+				elsif 	i_Opcode = "00100" then		-- muli
+					res_operation 	<= 3;
+					res_control		<= "10110";
+				elsif 	i_Opcode = "00101" then		-- divi
+					res_operation 	<= 4;
+					res_control		<= "10110";
+				elsif 	i_Opcode = "00110" then		-- cmpi
+					res_operation 	<= 5;
+					res_control		<= "10110";
+				elsif 	i_Opcode = "00101" then		-- slli
+					res_operation 	<= 6;
+					res_control		<= "10110";
+				elsif 	i_Opcode = "00110" then		-- srli
+					res_operation 	<= 7;
+					res_control		<= "10110";
+				elsif 	i_Opcode = "00111" then		-- clr
+					res_operation 	<= 15;
+					res_control		<= "00100";
+				elsif 	i_Opcode = "01000" then		-- andi
+					res_operation 	<= 9;
+					res_control		<= "10110";
+				elsif 	i_Opcode = "01001" then		-- orri
+					res_operation 	<= 10;
+					res_control		<= "10110";
+				elsif 	i_Opcode = "01010" then		-- xori
+					res_operation 	<= 11;
+					res_control		<= "10110";
+				elsif 	i_Opcode = "10000" then		-- Display
+					res_operation 	<= to_integer(unsigned(i_Instr(11 downto 8)));
+					res_control		<= "00001";
+				else
+					res_operation 	<= 0;
+					res_control		<= "00000";
+				end if;
 			else
 				res_operation 	<= 0;
 				res_control		<= "00000";

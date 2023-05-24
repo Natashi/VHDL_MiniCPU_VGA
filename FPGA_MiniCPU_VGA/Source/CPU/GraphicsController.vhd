@@ -19,7 +19,7 @@ end GraphicsController;
 architecture Behavioral of GraphicsController is
 	signal cursor_x		: integer range 0 to 79 := 0;
 	signal cursor_y		: integer range 0 to 39 := 0;
-	signal color		: std_logic_vector (2 downto 0) := "000";
+	signal color		: std_logic_vector (2 downto 0) := "111";
 	
 	signal w_write		: std_logic := '0';
 	signal w_reset		: std_logic := '0';
@@ -28,36 +28,38 @@ begin
 	process (i_CLK, i_Enable)
 		variable tmp_chr : integer range 0 to 255;
 	begin
-		if rising_edge(i_CLK) and i_Enable = '1' then
+		if rising_edge(i_CLK) then
 			w_write <= '0';
 			w_reset <= '0';
 			
-			if 		i_Operation = "0000" then		-- clr
-				
-				w_reset <= '1';
-				
-			elsif 	i_Operation = "0001" then		-- display char
-				
-				w_write <= '1';
-				
-				tmp_chr := to_integer(unsigned(i_Data(7 downto 0)));
-				if tmp_chr < 32 or tmp_chr > 127 then
-					tmp_chr := 32;
+			if i_Enable = '1' then
+				if 		i_Operation = "0000" then		-- clr
+					
+					w_reset <= '1';
+					
+				elsif 	i_Operation = "0001" then		-- display char
+					
+					w_write <= '1';
+					
+					tmp_chr := to_integer(unsigned(i_Data(7 downto 0)));
+					if tmp_chr < 32 or tmp_chr > 127 then
+						tmp_chr := 32;
+					end if;
+					
+					o_VRAM_Char <= std_logic_vector(to_unsigned(tmp_chr, 8));
+					
+					cursor_x <= cursor_x + 1;
+					
+				elsif 	i_Operation = "0011" then		-- set cursor
+					
+					cursor_x <= to_integer(unsigned(i_Data(7 downto 0)));
+					cursor_y <= to_integer(unsigned(i_Data(15 downto 8)));
+					
+				elsif 	i_Operation = "0100" then		-- set color
+					
+					color <= i_Data(2 downto 0);
+					
 				end if;
-				
-				o_VRAM_Char <= std_logic_vector(to_unsigned(tmp_chr, 8));
-				
-				cursor_x <= cursor_x + 1;
-				
-			elsif 	i_Operation = "0011" then		-- set cursor
-				
-				cursor_x <= to_integer(unsigned(i_Data(7 downto 0)));
-				cursor_y <= to_integer(unsigned(i_Data(15 downto 8)));
-				
-			elsif 	i_Operation = "0100" then		-- set color
-				
-				color <= i_Data(2 downto 0);
-				
 			end if;
 		end if;
 	end process;

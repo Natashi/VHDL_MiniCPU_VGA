@@ -6,20 +6,34 @@ entity InputCheck is
 	port (
 		i_Data		: in	std_logic_vector (31 downto 0);
 		i_Hash		: in	std_logic_vector (7 downto 0);
+		i_Enable	: in	std_logic;
 		
 		o_Valid		: out	std_logic
 	);
 end InputCheck;
 
 architecture Behavioral of InputCheck is
-	signal tmp_xor	: std_logic_vector (7 downto 0);
+	signal valid	: std_logic := '0';
 begin
 	
-	tmp_xor <= i_Data(31 downto 24)
-		xor i_Data(23 downto 16)
-		xor i_Data(15 downto 8)
-		xor i_Data(7 downto 0);
+	process (i_Enable)
+		variable tmp_xor	: std_logic_vector (7 downto 0);
+	begin
+		if rising_edge(i_Enable) then
+			tmp_xor := not (
+				i_Data(31 downto 24)
+				xor i_Data(23 downto 16)
+				xor i_Data(15 downto 8)
+				xor i_Data(7 downto 0));
+			
+			if i_Hash = tmp_xor then
+				valid <= '1';
+			else
+				valid <= '0';
+			end if;
+		end if;
+	end process;
 	
-	o_Valid <= '1' when (i_Hash = tmp_xor and i_Data(31 downto 29) /= "000") else '0';
+	o_Valid <= valid;
 	
 end Behavioral;
