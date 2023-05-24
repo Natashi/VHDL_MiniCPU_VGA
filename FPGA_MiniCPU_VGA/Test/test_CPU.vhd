@@ -114,14 +114,7 @@ BEGIN
 			wait for CLK_P2;
 			i_Enable <= '0';
 			
-			-- mov r0, r0
-			i_Instr <= MakeInsR(AL, 0, 0, 0, 0, 0);
-			for i in 0 to 0 loop
-				i_Enable <= '1';
-				wait for CLK_P;
-				i_Enable <= '0';
-				wait for CLK_P;
-			end loop;
+			wait for CLK_P2 * 5;
 		end procedure;
 	begin
 		wait for 20 ns;	

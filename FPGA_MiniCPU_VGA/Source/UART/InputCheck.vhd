@@ -20,6 +20,6 @@ begin
 		xor i_Data(15 downto 8)
 		xor i_Data(7 downto 0);
 	
-	o_Valid <= '1' when i_Hash = tmp_xor else '0';
+	o_Valid <= '1' when (i_Hash = tmp_xor and i_Data(31 downto 29) /= "000") else '0';
 	
 end Behavioral;

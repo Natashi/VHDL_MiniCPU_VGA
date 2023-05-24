@@ -5,7 +5,6 @@ use IEEE.NUMERIC_STD.all;
 entity InstructionDecode is
 	port (
 		i_Instr			: in	std_logic_vector (31 downto 0);
-		i_Enable		: in	std_logic;
 		i_CPSR			: in	std_logic_vector (7 downto 0);
 		i_CLK			: in	std_logic;
 		
@@ -31,9 +30,9 @@ architecture Behavioral of InstructionDecode is
 	signal res_operation	: integer range 0 to 15;
 	signal res_control		: std_logic_vector (4 downto 0);
 begin
-	process (i_Flag, i_Enable, i_CPSR)
+	process (i_CLK)
 	begin
-		if i_Enable = '1' then
+		if rising_edge(i_CLK) then
 			case i_Flag is
 				when "001" =>	-- EQ
 					all_enable <= cpsr_Z;
@@ -52,14 +51,12 @@ begin
 				when others =>
 					all_enable <= '0';
 			end case;
-		else
-			all_enable <= '0';
 		end if;
 	end process;
 	
-	process (i_CLK, i_Enable)
+	process (i_CLK)
 	begin
-		if rising_edge(i_CLK) and i_Enable = '1' then
+		if rising_edge(i_CLK) then
 			if 		i_Opcode = "00000" then		-- Basic ALU
 				res_operation 	<= to_integer(unsigned(i_Instr(11 downto 8)));
 				res_control		<= "01110";

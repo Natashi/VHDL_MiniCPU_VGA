@@ -19,10 +19,12 @@ architecture Behavioral of CPU_and_VGA is
 	
 	signal net_uart_data	: std_logic_vector (31 downto 0);
 	signal net_uart_valid	: std_logic;
+	signal net_uart_busy	: std_logic;
 	
 	signal net_vram_char	: std_logic_vector (7 downto 0);
 	signal net_vram_addr	: std_logic_vector (15 downto 0);
 	signal net_vram_cmd		: std_logic_vector (4 downto 0);
+	signal net_cpu_busy		: std_logic;
 begin
 	
 	net_rx <= i_InstrRX when i_Enable = '1' else '1';
@@ -39,7 +41,7 @@ begin
 			i_CLK		=> net_CLK_25MHz,
 			
 			o_Data		=> net_uart_data,
-			o_Busy		=> o_Busy,
+			o_Busy		=> net_uart_busy,
 			o_Valid		=> net_uart_valid
 		);
 	
@@ -51,7 +53,8 @@ begin
 			
 			o_VRAM_Char 	=> net_vram_char,
 			o_VRAM_Addr 	=> net_vram_addr,
-			o_VRAM_Cmd 		=> net_vram_cmd
+			o_VRAM_Cmd 		=> net_vram_cmd,
+			o_Busy 			=> net_cpu_busy
 		);
 	
 	INST_VGA: entity work.VGA_Renderer(Behavioral) 
@@ -63,6 +66,8 @@ begin
 			
 			o_VGA			=> o_VGA
 		);
+	
+	o_Busy <= net_uart_busy or net_cpu_busy;
 	
 end Behavioral;
 
